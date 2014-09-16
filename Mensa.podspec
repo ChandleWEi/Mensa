@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   }
   s.source = {
     :git => 'https://github.com/ChandleWEi/Mensa.git',
-    :tag => '0.8.2'
+    :tag => s.version.to_s
   }
   s.license = {
     :type => 'MIT'
