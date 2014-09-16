@@ -54,6 +54,9 @@
 {
     if ([self canSelectObject:object forViewController:viewController]) {
         [viewController selectObject:object];
+        if ([self.delegate respondsToSelector:@selector(dataMediator:didSelectObject:)]) {
+            [self.delegate dataMediator:self didSelectObject:object];
+        }
     }
 }
 
@@ -110,7 +113,7 @@
     return [self.backingSections[section] summary];
 }
 
-- (id <MNSHostingCell>)_metricsCellForObject:(id)object
+- (id<MNSHostingCell>)_metricsCellForObject:(id)object
 {
     id<MNSHostingCell> metricsCell;
     Class modelClass = [object class];

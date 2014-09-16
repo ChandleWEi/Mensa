@@ -8,8 +8,6 @@
 
 #import "MNSCollectionViewController.h"
 
-#define INSET 10.0f
-
 @interface MNSCollectionViewController ()
 
 @property (nonatomic) MNSDataMediator *dataMediator;
@@ -22,9 +20,9 @@
 
 static NSString *cellIdentifier = @"MNSCollectionViewCell";
 
-- (void)reloadDataAndUpdateCollectionView
+- (void)reloadDataAndUpdateCollectionView:(BOOL)update
 {
-    [self.dataMediator reloadDataWithUpdate:YES];
+    [self.dataMediator reloadDataWithUpdate:update];
 }
 
 #pragma mark - UIViewController
@@ -113,7 +111,7 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
 
     if (metricsCell) {
         [self.dataMediator useViewController:metricsCell.hostedViewController withObject:object];
-        [metricsCell layoutIfNeeded];
+        [metricsCell setNeedsUpdateConstraints];
 
         size = [metricsCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }
@@ -145,6 +143,7 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
 - (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(MNSHostingCollectionViewCell *)metricsCell
 {
     [metricsCell useAsMetricsCellInCollectionView:self.collectionView];
+    [MNSViewHosting adjustLayoutConstraintsForCell:metricsCell contentView:metricsCell.contentView];
 }
 
 @end
